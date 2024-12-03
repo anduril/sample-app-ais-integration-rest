@@ -1,0 +1,4 @@
+APScheduler==3.10.4
+PyYAML==6.0.2
+pandas==2.2.3
+aiohttp~=3.10.10
