@@ -6,8 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
-# Init files
-src/__*
+# Python init files
+__init__.py
 
 # Distribution / packaging
 .Python

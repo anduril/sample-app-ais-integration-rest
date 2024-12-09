@@ -73,13 +73,13 @@ class Lattice:
             vessel_data (VesselData): The data containing relevant information about the vessel.
         Returns:
             Entity -> Dict: The generated entity with the basic attributes filled out:
-                - entity_id: The vessel's MMSI (blank if not provided).
+                - entity_id: The vessel's MMSI.
                 - description: A description of the vessel.
                 - is_live: A boolean indicating whether the entity is live.
                 - created_time: The time the entity was created.
                 - expiry_time: The time the entity expires.
                 - aliases: The aliases for the entity, including the vessel's MMSI.
-                - mil_view: The military view for the entity.
+                - mil_view: View of the entity.
                 - location: The location of the entity, including latitude, longitude, and altitude.
                 - ontology: The ontology for the entity, including the template, platform type, and specific type.
                 - provenance: The provenance for the entity, including the data type, integration name, and source update time.

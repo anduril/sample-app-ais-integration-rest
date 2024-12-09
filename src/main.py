@@ -43,7 +43,6 @@ if __name__ == "__main__":
 
     with open(args.configpath) as config_file:
         cfg = yaml.load(config_file, Loader=yaml.FullLoader)
-        logger.debug(f"provided config {cfg}")
         validate_config(cfg)
 
     # range check the ais dataset generation interval
