@@ -112,7 +112,7 @@ class Lattice:
             },
             "ontology": {
                 "template": "TEMPLATE_TRACK",
-                # For more information, please refer to https://docs.anduril.com/entity/publishing-your-first-entity#define-ontology
+                # For more information, please refer to https://docs.anduril.com/entity/publishing-your-first-entity#assign-entity-icons
                 "platformType": "Surface_Vessel",
             },
             "provenance": {
