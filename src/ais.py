@@ -6,7 +6,7 @@ from collections import namedtuple
 VesselData = namedtuple('VesselData', ['MMSI', 'LAT', 'LON', 'VesselName'])
 
 class AIS:
-    def __init__(self, logger: Logger, csv_path: str, requested_mmsis: list[str]):
+    def __init__(self, logger: Logger, csv_path: str, requested_mmsis: list[int]):
         """
         AIS class constructor
 
