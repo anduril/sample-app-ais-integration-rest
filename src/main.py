@@ -3,7 +3,6 @@ import logging
 import os
 import time
 from asyncio import run
-from datetime import timedelta
 
 import yaml
 from apscheduler.schedulers.background import BackgroundScheduler
