@@ -9,10 +9,12 @@ from ais import VesselData
 EXPIRY_OFFSET_SECONDS = 10
 
 class Lattice:
-    def __init__(self, logger: Logger, lattice_ip: str, bearer_token: str):
+    def __init__(self, logger: Logger, lattice_ip: str, bearer_token: str, sandbox_token: Optional[str]):
         self.logger = logger
         self.lattice_ip = lattice_ip if lattice_ip.startswith("https://") else f"https://{lattice_ip}"
         self.generated_metadata = {"authorization": "Bearer " + bearer_token}
+        if sandbox_token:
+            self.generated_metadata["anduril-sandbox-authorization"] = f"Bearer {sandbox_token}"
 
     async def get_entity(self, entity_id) -> Optional[Dict[str, Any]]:
         """

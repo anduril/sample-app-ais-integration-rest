@@ -18,6 +18,7 @@ DATASET_PATH = "var/ais_vessels.csv"
 class Config(BaseModel):
     lattice_ip: str = Field(alias="lattice-ip")
     lattice_bearer_token: str = Field(alias="lattice-bearer-token")
+    sandbox_token: str = Field(alias="sandbox-token")
     entity_update_rate_seconds: int = Field(alias="entity-update-rate-seconds")
     vessel_mmsi: list[int] = Field(alias="vessel-mmsi")
     ais_generate_interval_seconds: int = Field(
@@ -53,7 +54,7 @@ if __name__ == "__main__":
 
     ais_data = AIS(logger, DATASET_PATH, cfg.vessel_mmsi)
 
-    lattice_api = Lattice(logger, cfg.lattice_ip, cfg.lattice_bearer_token)
+    lattice_api = Lattice(logger, cfg.lattice_ip, cfg.lattice_bearer_token, cfg.sandbox_token)
 
     ais_lattice_integration_hook = AISLatticeIntegration(
         logger, lattice_api, ais_data
