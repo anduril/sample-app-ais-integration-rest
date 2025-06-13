@@ -13,7 +13,7 @@ The AIS (Automatic Identification System) vessel traffic dataset is a repository
 - Python version greater than or equal to 3.9
 
 #### Before you begin
-Ensure you have [set up your development environment](https://docs.anduril.com/category/getting-started)
+Ensure you have [set up your development environment](https://docs.anduril.com/guide/get-started)
 
 #### Clone the repository
 
