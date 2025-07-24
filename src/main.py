@@ -8,9 +8,10 @@ import yaml
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel, Field
 
+from anduril import Lattice
+
 from ais import AIS
 from integration import AISLatticeIntegration
-from lattice import Lattice
 
 DATASET_PATH = "var/ais_vessels.csv"
 
@@ -54,10 +55,15 @@ if __name__ == "__main__":
 
     ais_data = AIS(logger, DATASET_PATH, cfg.vessel_mmsi)
 
-    lattice_api = Lattice(logger, cfg.lattice_ip, cfg.lattice_bearer_token, cfg.sandbox_token)
-
+    lattice = Lattice(
+                    base_url=f"https://{cfg.lattice_ip}",
+                    token=cfg.lattice_bearer_token, 
+                    headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandbox_token}" }
+                )
+    # Remove the header if you are not developing on Sandboxes.
+    
     ais_lattice_integration_hook = AISLatticeIntegration(
-        logger, lattice_api, ais_data
+        logger, lattice, ais_data
     )
 
     # Running the fetch job in the background, spin up a second job to periodically publish entities.
