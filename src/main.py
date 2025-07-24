@@ -55,12 +55,12 @@ if __name__ == "__main__":
 
     ais_data = AIS(logger, DATASET_PATH, cfg.vessel_mmsi)
 
+    # Remove the header if you are not developing on Sandboxes.
     lattice = Lattice(
                     base_url=f"https://{cfg.lattice_ip}",
                     token=cfg.lattice_bearer_token, 
                     headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandbox_token}" }
                 )
-    # Remove the header if you are not developing on Sandboxes.
     
     ais_lattice_integration_hook = AISLatticeIntegration(
         logger, lattice, ais_data
