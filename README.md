@@ -1,8 +1,6 @@
 # AIS to Lattice Integration
 
-## Description
 This is a sample application showcasing a REST integration in Python that transmits simulated AIS vessel traffic data to Lattice.
-
 The sample application demonstrates how to create an entity as a JSON payload and call the `Lattice.entities.publish_entity` method to publish an entity to Lattice.
 
 ![Image showing the Lattice UI with AIS data displayed](./images/screenshot.png)
