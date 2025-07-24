@@ -1,24 +1,20 @@
-import argparse
-import logging
-import os
-import time
-from asyncio import run
+from anduril import Lattice
 
-import yaml
+import argparse, logging, os, time, yaml
+from asyncio import run
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel, Field
 
 from ais import AIS
 from integration import AISLatticeIntegration
-from lattice import Lattice
 
 DATASET_PATH = "var/ais_vessels.csv"
 
 
 class Config(BaseModel):
-    lattice_ip: str = Field(alias="lattice-ip")
-    lattice_bearer_token: str = Field(alias="lattice-bearer-token")
-    sandbox_token: str = Field(alias="sandbox-token")
+    lattice_endpoint: str = Field(alias="lattice-endpoint")
+    environment_token: str = Field(alias="environment-token")
+    sandboxes_token: str = Field(alias="sandboxes-token")
     entity_update_rate_seconds: int = Field(alias="entity-update-rate-seconds")
     vessel_mmsi: list[int] = Field(alias="vessel-mmsi")
     ais_generate_interval_seconds: int = Field(
@@ -54,10 +50,15 @@ if __name__ == "__main__":
 
     ais_data = AIS(logger, DATASET_PATH, cfg.vessel_mmsi)
 
-    lattice_api = Lattice(logger, cfg.lattice_ip, cfg.lattice_bearer_token, cfg.sandbox_token)
-
+    # Remove the header if you are not developing on Sandboxes.
+    client = Lattice(
+                    base_url=f"https://{cfg.lattice_endpoint}",
+                    token=cfg.environment_token, 
+                    headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}" }
+                )
+    
     ais_lattice_integration_hook = AISLatticeIntegration(
-        logger, lattice_api, ais_data
+        logger, client, ais_data
     )
 
     # Running the fetch job in the background, spin up a second job to periodically publish entities.

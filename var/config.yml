@@ -1,8 +1,6 @@
-# lattice dns/ip
-lattice-ip: <YOUR_LATTICE_IP>
-# lattice-bearer-token
-lattice-bearer-token: <YOUR_LATTICE_BEARER_TOKEN>
-sandbox-token: <YOUR_SANDBOX_TOKEN>
+lattice-endpoint: <LATTICE_ENDPOINT>
+environment-token: <ENVIRONMENT_TOKEN>
+sandboxes-token: <SANDBOXES_TOKEN>
 # entity update frequency (seconds)
 entity-update-rate-seconds: 1
 # vessels to track
