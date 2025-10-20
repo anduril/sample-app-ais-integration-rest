@@ -35,7 +35,7 @@ cd sample-app-ais-integration-rest
     pip install -r requirements.txt
     ```
 1. Modify the configuration file in `var/config.yml`:
-    * Replace `<ENVIRONMENT_TOKEN>` and `<LATTICE_ENDPOINT>` with your environment endpoint and tokens:
+    * Replace `<ENVIRONMENT_TOKEN>`, `<SANDBOXES_TOKEN>` and `<LATTICE_ENDPOINT>` with your environment endpoint and tokens. For information on how to obtain these tokens, see the [Sandboxes documentation](https://developer.anduril.com/guides/getting-started/sandboxes#get-the-tokens).
     * You can also modify:
         - `entity-update-rate-seconds`: To change the interval between publishing vessel entities
         - `vessel-mmsi`: To change the vessels to track
