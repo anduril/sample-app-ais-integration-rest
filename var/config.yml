@@ -1,7 +1,8 @@
 # lattice dns/ip
-lattice-ip: <YOUR_LATTICE_IP>
+lattice-ip: <YOUR_ENVIRONMENT_URL>
 # lattice-bearer-token
-lattice-bearer-token: <YOUR_LATTICE_BEARER_TOKEN>
+lattice-client-id: <YOUR_CLIENT_ID>
+lattice-client-secret: <YOUR_CLIENT_SECRET>
 sandbox-token: <YOUR_SANDBOX_TOKEN>
 # entity update frequency (seconds)
 entity-update-rate-seconds: 1
