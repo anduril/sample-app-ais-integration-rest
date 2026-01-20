@@ -13,7 +13,8 @@ DATASET_PATH = "var/ais_vessels.csv"
 
 class Config(BaseModel):
     lattice_endpoint: str = Field(alias="lattice-endpoint")
-    environment_token: str = Field(alias="environment-token")
+    lattice_client_id: str = Field(alias="lattice-client-id")
+    lattice_client_secret: str = Field(alias="lattice-client-secret")
     sandboxes_token: str = Field(alias="sandboxes-token")
     entity_update_rate_seconds: int = Field(alias="entity-update-rate-seconds")
     vessel_mmsi: list[int] = Field(alias="vessel-mmsi")
@@ -52,11 +53,11 @@ if __name__ == "__main__":
 
     # Remove the header if you are not developing on Sandboxes.
     client = Lattice(
-                    base_url=f"https://{cfg.lattice_endpoint}",
-                    token=cfg.environment_token, 
-                    headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}" }
-                )
-    
+        base_url=f"https://{cfg.lattice_endpoint}",
+        client_id=cfg.lattice_client_id,
+        client_secret=cfg.lattice_client_secret, 
+        headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}" }
+    )
     ais_lattice_integration_hook = AISLatticeIntegration(
         logger, client, ais_data
     )
