@@ -1,9 +1,9 @@
 # lattice dns/ip
-lattice-ip: <YOUR_ENVIRONMENT_URL>
+lattice-endpoint: <LATTICE_ENDPOINT>
 # lattice-bearer-token
 lattice-client-id: <YOUR_CLIENT_ID>
 lattice-client-secret: <YOUR_CLIENT_SECRET>
-sandbox-token: <YOUR_SANDBOX_TOKEN>
+sandboxes-token: <SANDBOXES_TOKEN>
 # entity update frequency (seconds)
 entity-update-rate-seconds: 1
 # vessels to track
