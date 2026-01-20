@@ -51,9 +51,9 @@ if __name__ == "__main__":
 
     ais_data = AIS(logger, DATASET_PATH, cfg.vessel_mmsi)
 
-    lattice_api = Lattice(
-        logger, 
-        base_url=cfg.lattice_endpoint, 
+    # Remove the header if you are not developing on Sandboxes.
+    client = Lattice(
+        base_url=f"https://{cfg.lattice_endpoint}",
         client_id=cfg.lattice_client_id,
         client_secret=cfg.lattice_client_secret, 
         headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}" }

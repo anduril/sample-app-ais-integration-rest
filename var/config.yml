@@ -1,11 +1,13 @@
-# lattice dns/ip
 lattice-endpoint: <LATTICE_ENDPOINT>
-# lattice-bearer-token
+sandboxes-token: <SANDBOXES_TOKEN>
+
+# client credentials
 lattice-client-id: <YOUR_CLIENT_ID>
 lattice-client-secret: <YOUR_CLIENT_SECRET>
-sandboxes-token: <SANDBOXES_TOKEN>
+
 # entity update frequency (seconds)
 entity-update-rate-seconds: 1
+
 # vessels to track
 vessel-mmsi:
     - 730156067 # RM SEA TROUT
