@@ -1,6 +1,10 @@
 from anduril import Lattice
 
-import argparse, logging, os, time, yaml
+import argparse
+import logging
+import os
+import time
+import yaml
 from asyncio import run
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel, Field
@@ -18,9 +22,7 @@ class Config(BaseModel):
     sandboxes_token: str = Field(alias="sandboxes-token")
     entity_update_rate_seconds: int = Field(alias="entity-update-rate-seconds")
     vessel_mmsi: list[int] = Field(alias="vessel-mmsi")
-    ais_generate_interval_seconds: int = Field(
-        alias="ais-generate-interval-seconds"
-    )
+    ais_generate_interval_seconds: int = Field(alias="ais-generate-interval-seconds")
 
 
 if __name__ == "__main__":
@@ -55,30 +57,22 @@ if __name__ == "__main__":
     client = Lattice(
         base_url=f"https://{cfg.lattice_endpoint}",
         client_id=cfg.lattice_client_id,
-        client_secret=cfg.lattice_client_secret, 
-        headers={ "anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}" }
+        client_secret=cfg.lattice_client_secret,
+        headers={"anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}"},
     )
-    ais_lattice_integration_hook = AISLatticeIntegration(
-        logger, client, ais_data
-    )
+    ais_lattice_integration_hook = AISLatticeIntegration(logger, client, ais_data)
 
     # Running the fetch job in the background, spin up a second job to periodically publish entities.
     scheduler = BackgroundScheduler()
+    scheduler.add_job(ais_data.refresh_ais, "interval", seconds=generate_interval)
     scheduler.add_job(
-        ais_data.refresh_ais, "interval", seconds=generate_interval
-    )
-    scheduler.add_job(
-        lambda: run(
-            ais_lattice_integration_hook.publish_vessels_as_entities()
-        ),
+        lambda: run(ais_lattice_integration_hook.publish_vessels_as_entities()),
         "interval",
         seconds=cfg.entity_update_rate_seconds,
     )
     scheduler.start()
 
-    logger.info(
-        "Press Ctrl+{0} to exit".format("Break" if os.name == "nt" else "C")
-    )
+    logger.info("Press Ctrl+{0} to exit".format("Break" if os.name == "nt" else "C"))
     try:
         while True:
             time.sleep(2)
