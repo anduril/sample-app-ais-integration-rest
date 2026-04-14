@@ -1,5 +1,5 @@
 APScheduler==3.11.2
-anduril-lattice-sdk==4.4.0
+anduril-lattice-sdk==4.8.0
 PyYAML==6.0.3
 pandas==2.2.3
 aiohttp~=3.13.5
