@@ -1,4 +1,4 @@
-APScheduler==3.11.2
+APScheduler==3.11.3
 anduril-lattice-sdk==4.16.0
 PyYAML==6.0.3
 pandas==3.0.3
