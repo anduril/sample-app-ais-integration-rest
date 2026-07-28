@@ -1,11 +1,11 @@
-from anduril import Lattice
-
 import argparse
 import logging
 import os
 import time
-import yaml
 from asyncio import run
+
+import yaml
+from anduril import Lattice
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel, Field
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     )
     scheduler.start()
 
-    logger.info("Press Ctrl+{0} to exit".format("Break" if os.name == "nt" else "C"))
+    logger.info("Press Ctrl+{} to exit".format("Break" if os.name == "nt" else "C"))
     try:
         while True:
             time.sleep(2)

@@ -1,19 +1,20 @@
-from logging import Logger
-from ais import AIS
 from datetime import datetime, timedelta, timezone
+from logging import Logger
 
-from anduril import Lattice
 from anduril import (
     Aliases,
     AlternateId,
     Classification,
     ClassificationInformation,
+    Lattice,
     Location,
     MilView,
     Ontology,
     Position,
     Provenance,
 )
+
+from ais import AIS
 
 EXPIRY_OFFSET_SECONDS = 10
 
