@@ -7,7 +7,7 @@ from asyncio import run
 import yaml
 from anduril import Lattice
 from apscheduler.schedulers.background import BackgroundScheduler
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from ais import AIS
 from integration import AISLatticeIntegration
@@ -17,12 +17,23 @@ DATASET_PATH = "var/ais_vessels.csv"
 
 class Config(BaseModel):
     lattice_endpoint: str = Field(alias="lattice-endpoint")
-    lattice_client_id: str = Field(alias="lattice-client-id")
-    lattice_client_secret: str = Field(alias="lattice-client-secret")
+    environment_token: str | None = Field(default=None, alias="environment-token")
+    lattice_client_id: str | None = Field(default=None, alias="lattice-client-id")
+    lattice_client_secret: str | None = Field(default=None, alias="lattice-client-secret")
     sandboxes_token: str = Field(alias="sandboxes-token")
     entity_update_rate_seconds: int = Field(alias="entity-update-rate-seconds")
     vessel_mmsi: list[int] = Field(alias="vessel-mmsi")
     ais_generate_interval_seconds: int = Field(alias="ais-generate-interval-seconds")
+
+    @model_validator(mode="after")
+    def check_auth(self):
+        if not self.environment_token and not (
+            self.lattice_client_id and self.lattice_client_secret
+        ):
+            raise ValueError(
+                "missing environment-token, or lattice-client-id and lattice-client-secret"
+            )
+        return self
 
 
 if __name__ == "__main__":
@@ -56,6 +67,7 @@ if __name__ == "__main__":
     # Remove the header if you are not developing on Sandboxes.
     client = Lattice(
         base_url=f"https://{cfg.lattice_endpoint}",
+        token=cfg.environment_token or None,
         client_id=cfg.lattice_client_id,
         client_secret=cfg.lattice_client_secret,
         headers={"anduril-sandbox-authorization": f"Bearer {cfg.sandboxes_token}"},
